@@ -1,0 +1,31 @@
+{
+  "name": "mmv-bim-viewer-wiv",
+  "version": "1.0.0",
+  "description": "Bim viewer build on web-ifc-viewer",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "update-ifcjs": "npm i web-ifc-three@latest && npm i && copy-wasm",
+    "copy-wasm": "cpy node_modules/web-ifc/web-ifc.wasm . && cpy node_modules/web-ifc/web-ifc-mt.wasm ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Benny812/mmv-bim-viewer-wiv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Benny812/mmv-bim-viewer-wiv/issues"
+  },
+  "homepage": "https://github.com/Benny812/mmv-bim-viewer-wiv#readme",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup": "^2.78.1"
+  },
+  "dependencies": {
+    "three": "^0.135.0",
+    "web-ifc-three": "^0.0.121",
+    "web-ifc-viewer": "^1.0.210"
+  }
+}
