@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
+    "watch": "rollup -c -w",
     "update-ifcjs": "npm i web-ifc-three@latest && npm i && copy-wasm",
     "copy-wasm": "cpy node_modules/web-ifc/web-ifc.wasm . && cpy node_modules/web-ifc/web-ifc-mt.wasm ."
   },
@@ -24,6 +25,7 @@
     "rollup": "^2.78.1"
   },
   "dependencies": {
+    "camera-controls": "^1.36.2",
     "three": "^0.135.0",
     "web-ifc-three": "^0.0.121",
     "web-ifc-viewer": "^1.0.210"

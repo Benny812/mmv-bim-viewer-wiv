@@ -1,0 +1,16 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none" stroke="#000">
+  <g stroke-linecap="square" stroke-linejoin="round">
+   <rect x="10.195" y="20.84" width="12.591" height="1.9368" rx=".89465" ry=".96841" style="paint-order:markers fill stroke"/>
+   <rect x="5.241" y="7.6092" width="12.591" height="1.9368" rx=".89465" ry=".96841" style="paint-order:markers fill stroke"/>
+   <rect x="1.2146" y="1.2236" width="12.591" height="1.9368" rx=".89465" ry=".96841" style="paint-order:markers fill stroke"/>
+   <rect x="5.3318" y="13.882" width="12.591" height="1.9368" rx=".89465" ry=".96841" style="paint-order:markers fill stroke"/>
+  </g>
+  <g>
+   <path d="m5.9506 8.5776h-4.5158" style="paint-order:markers fill stroke"/>
+   <path d="m6.0257 14.85h-4.5909" style="paint-order:markers fill stroke"/>
+   <path d="m10.883 21.808h-9.812" style="paint-order:markers fill stroke"/>
+  </g>
+  <path d="m1.2488 2.5426 0.00824 19.265" stroke-linecap="square" stroke-width=".99119" style="paint-order:markers fill stroke"/>
+ </g>
+</svg>

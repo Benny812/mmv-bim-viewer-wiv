@@ -2,11 +2,423 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 html,
 body {
   overflow: hidden;
+}
+:root {
+  --dark: #262627;
+  --medium: #969696be;
+  --solid-medium: #bebebe;
+  --light: #f4f4f4;
+  --shadow: 3px -3px 4px 5px #000000;
+  --hover-shadow: 3px -3px 4px 5px #ff0000;
+  --border: 1px solid rgb(255, 0, 0);
+  --btn-border: 2px solid rgb(255, 0, 0);
+  --black: #000000;
+  --x-axis: #ff0000;
+  --y-axis: #00ff00;
+  --z-axis: #0000ff;
+}
+
+/************* Gallery *****************/
+
+h1 {
+  font-size: 3.5vw;
+  color: var(--black);
+}
+
+h3 {
+  font-variant: small-caps;
+  text-align: center;
+  font-size: clamp (0.625rem, 1.5rem, 1.5625rem);
+}
+
+.background {
+  overflow: hidden;
+  height: 100vh;
+  background-image: url(./Resources/images/bcgW2325.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.header-gallery {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 3rem;
+  align-items: center;
+  animation: animate-header-loader 300ms ease-in-out;
+}
+
+.logo {
+  width: 4rem;
+}
+.support-button {
+  color: var(--black);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.5em 1.5em;
+  font-size: 1.2em;
+  font-variant: small-caps;
+  outline: var(--btn-border);
+  border: var(--btn-border);
+  outline-offset: -2px;
+  transition: outline-offset 100ms ease;
+}
+.support-button:hover {
+  outline-offset: -6px;
+}
+
+.cards-flexcontainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 25px;
+}
+
+.card {
+  background-color: var(--medium);
+  width: 12rem;
+  height: 17rem;
+  border: var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  transition: all 0.3s;
+  animation: animate-cards 600ms ease-in;
+}
+
+.card:hover {
+  background-color: var(--solid-medium);
+  transform: translateY(15px);
+}
+
+.card-button {
+  font-size: 1rem;
+  padding: 0.2rem;
+  margin: 1rem 3rem 1rem 3rem;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 8%;
+  background-color: var(--light);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+  color: var(--black);
+}
+.card-button:hover {
+  box-shadow: var(--hover-shadow);
+  transform: scale(1.2);
+}
+
+.excavator {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-self: center;
+}
+.excavator-flexcontainer {
+  height: 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#svg400 {
+  width: 60%;
+  height: 90%;
+  fill: var(--black);
+}
+
+/*************** Viewer *********************/
+
+#viewer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+  width: 100%;
+  height: 100%;
+}
+
+.input-container {
+  width: 25%;
+  z-index: 1;
+  position: absolute;
+  right: 0%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3125rem;
+  margin: 4.5rem 1.25rem;
+  border: 1px solid red;
+
+  padding: 10px;
+}
+
+.fileInputButton {
+  z-index: 1;
+}
+
+.pickById {
+  color: #ff0000;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.ifc-property-menu {
+  border: 1px solid gray;
+  width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  background-color: white;
+}
+
+.ifc-property-menu-container {
+  width: 100%;
+}
+
+.ifc-property-item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0.5rem;
+  border-bottom: solid 1px gray;
+}
+
+.ifc-property-value {
+  width: 100%;
+  text-align: right;
+}
+
+.header-viewer-container {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  animation: animate-header-loader 300ms ease-in-out;
+}
+.header-viewer {
+  color: var(--black);
+  font-size: 3vw;
+  transform: translateX(16%);
+}
+
+.gallery-button {
+  color: var(--black);
+  text-decoration: none;
+  font-variant: small-caps;
+  font-size: 1.2em;
+  padding: 0.5em 1.5em;
+  outline: var(--btn-border);
+  border: var(--btn-border);
+  outline-offset: -2px;
+  transition: outline-offset 100ms ease;
+}
+
+.gallery-button:hover {
+  outline-offset: -6px;
+}
+
+.sidebar {
+  position: absolute;
+  height: 100%;
+  margin-left: 0.5rem;
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+  animation: animate-toolbar 300ms ease-in-out;
+}
+
+.toolbar-btn-spatial-tree {
+  display: flex;
+  align-items: center;
+  justify-self: flex-start;
+
+  border-radius: 0.5em;
+  padding: 0.5em;
+  outline: var(--btn-border);
+  border: var(--btn-border);
+  outline-offset: -2px;
+  transition: outline-offset 250ms ease;
+}
+
+.toolbar-btn-spatial-tree:hover {
+  outline-offset: -6px;
+}
+
+.toolbar-btn-spatial-tree:active {
+  background-color: #ff0000;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  outline: var(--btn-border);
+  border: var(--btn-border);
+  outline-offset: -2px;
+  transition: outline-offset 250ms ease;
+}
+
+.toolbar-btn:hover {
+  outline-offset: -6px;
+}
+
+.toolbar-btn-hideButton {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  outline: var(--btn-border);
+  border: var(--btn-border);
+  outline-offset: -2px;
+  transition: outline-offset 250ms ease;
+}
+
+.toolbar-btn-hideButton:hover {
+  outline-offset: -6px;
+}
+.toolbar-btn-hideButton:active {
+  background-color: #ff0000;
+}
+
+.top-nav {
+  position: absolute;
+  z-index: 1;
+  margin-top: 6.25rem;
+  gap: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  display: none;
+}
+
+.azimuthXBtn {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.azimuthZBtn {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.polarBtn {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.isoBtn {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.azimuthXBtn:hover {
+  background-color: var(--x-axis);
+}
+
+.azimuthZBtn:hover {
+  background-color: var(--z-axis);
+}
+
+.polarBtn:hover {
+  background-color: var(--y-axis);
+}
+
+.isoBtn:hover {
+  background-color: var(--light);
+}
+
+/*Tree view: https://www.w3schools.com/howto/howto_js_treeview.asp*/
+
+.ifc-tree-menu {
+  z-index: 1;
+  position: absolute;
+  overflow-y: scroll;
+  background-color: white;
+  height: 100vh;
+}
+
+li ul {
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Remove default bullets */
+ul,
+#myUL {
+  list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0.5rem;
+  padding: 0;
+}
+
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+  margin-left: 10px;
 }
 
 #viewer-container {
@@ -16,4 +428,74 @@ body {
   outline: none;
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 450px) {
+  h1 {
+    font-size: 2.5vw;
+  }
+  .support-button {
+    font-size: 0.8em;
+  }
+
+  .cards-flexcontainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 15px;
+  }
+
+  .header-gallery {
+    height: 5rem;
+    justify-content: center;
+  }
+  .card-button {
+    padding: 0.1rem;
+  }
+  .header-viewer {
+    display: none;
+  }
+  .header-viewer-container {
+    justify-content: space-between;
+  }
+  .logo {
+    width: 1.875rem;
+  }
+}
+@media (max-width: 350px) {
+  h1 {
+    display: none;
+  }
+}
+@keyframes animate-header-loader {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes animate-toolbar {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes animate-cards {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
