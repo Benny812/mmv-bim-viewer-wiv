@@ -1,3 +1,5 @@
+import { SubsetManager as SubsetManager$1 } from 'web-ifc-three/IFC/components/subsets/SubsetManager';
+
 /*!
  * camera-controls
  * https://github.com/yomotsu/camera-controls
@@ -121940,154 +121942,79 @@ input.addEventListener(
 
 /******************* Loader URL path *****************************/
 
-async function loadIfc(url) {
-  const model = await viewer.IFC.loadIfcUrl(url);
-  await viewer.shadowDropper.renderShadow(model.modelID);
-  viewer.context.renderer.postProduction.active = true;
+// async function loadIfc(url) {
+//   const model = await viewer.IFC.loadIfcUrl(url);
+//   await viewer.shadowDropper.renderShadow(model.modelID);
+//   viewer.context.renderer.postProduction.active = true;
 
-  const ifcProject = await viewer.IFC.getSpatialStructure(model.modelID);
-  createTreeMenu(ifcProject);
-}
-loadIfc("../Resources/temp/01.ifc");
+//   const ifcProject = await viewer.IFC.getSpatialStructure(model.modelID);
+//   createTreeMenu(ifcProject);
+// }
+// loadIfc("../Resources/temp/01.ifc");
 
-// Spatial tree menu
+/*************************** Spatial tree menu **********************/
 
-function createTreeMenu(ifcProject) {
-  const root = document.getElementById("tree-root");
-  removeAllChildren(root);
-  const ifcProjectNode = createNestedChild(root, ifcProject);
-  ifcProject.children.forEach((child) => {
-    constructTreeMenuNode(ifcProjectNode, child);
-  });
-}
-
-function nodeToString(node) {
-  return `${node.type} - ${node.expressID}`;
-}
-
-function constructTreeMenuNode(parent, node) {
-  const children = node.children;
-  if (children.length === 0) {
-    createSimpleChild(parent, node);
-    return;
-  }
-  const nodeElement = createNestedChild(parent, node);
-  children.forEach((child) => {
-    constructTreeMenuNode(nodeElement, child);
-  });
-}
-
-function createNestedChild(parent, node) {
-  const content = nodeToString(node);
-  const root = document.createElement("li");
-  createTitle(root, content);
-  const childrenContainer = document.createElement("ul");
-  childrenContainer.classList.add("nested");
-  root.appendChild(childrenContainer);
-  parent.appendChild(root);
-  return childrenContainer;
-}
-
-function createTitle(parent, content) {
-  const title = document.createElement("span");
-  title.classList.add("caret");
-  title.onclick = () => {
-    title.parentElement.querySelector(".nested").classList.toggle("active");
-    title.classList.toggle("caret-down");
-  };
-  title.textContent = content;
-  parent.appendChild(title);
-}
-
-function createSimpleChild(parent, node) {
-  const content = nodeToString(node);
-  const childNode = document.createElement("li");
-  childNode.classList.add("leaf-node");
-  childNode.textContent = content;
-  parent.appendChild(childNode);
-
-  childNode.onmouseenter = () => {
-    viewer.IFC.selector.prepickIfcItemsByID(0, [node.expressID]);
-  };
-
-  childNode.onclick = async () => {
-    viewer.IFC.selector.pickIfcItemsByID(0, [node.expressID]);
-  };
-}
-
-function removeAllChildren(element) {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-}
-
-/****************** Select ************************************/
-window.onclick = () => viewer.IFC.selector.pickIfcItem(false, false);
-window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
-
-window.onkeydown = (event) => {
-  if (event.code === "KeyC") {
-    viewer.IFC.selector.unpickIfcItems();
-    viewer.IFC.selector.unHighlightIfcItems();
-  }
-};
-
-/******************** Get properties ***************************/
-
-// window.onclick = async () => {
-//   const { modelID, id } = await viewer.IFC.selector.pickIfcItem();
-//   const props = await viewer.IFC.getProperties(modelID, id, true, false);
-
-//   console.log(props);
-// };
-
-/**************** Properties menu *****************************/
-
-// window.ondblclick = async () => {
-//   const result = await viewer.IFC.selector.highlightIfcItem();
-//   if (!result) return;
-//   const { modelID, id } = result;
-//   const props = await viewer.IFC.getProperties(modelID, id, true, false);
-//   createPropertiesMenu(props);
-// };
-
-// const propsGUI = document.getElementById("ifc-property-menu-root");
-
-// function createPropertiesMenu(properties) {
-//   console.log(properties);
-
-//   removeAllChildren(propsGUI);
-
-//   const psets = properties.psets;
-//   const mats = properties.mats;
-//   const type = properties.type;
-
-//   delete properties.psets;
-//   delete properties.mats;
-//   delete properties.type;
-
-//   for (let key in properties) {
-//     createPropertyEntry(key, properties[key]);
-//   }
+// function createTreeMenu(ifcProject) {
+//   const root = document.getElementById("tree-root");
+//   removeAllChildren(root);
+//   const ifcProjectNode = createNestedChild(root, ifcProject);
+//   ifcProject.children.forEach((child) => {
+//     constructTreeMenuNode(ifcProjectNode, child);
+//   });
 // }
 
-// function createPropertyEntry(key, value) {
-//   const propContainer = document.createElement("div");
-//   propContainer.classList.add("ifc-property-item");
+// function nodeToString(node) {
+//   return `${node.type} - ${node.expressID}`;
+// }
 
-//   if (value === null || value === undefined) value = "undefined";
-//   else if (value.value) value = value.value;
+// function constructTreeMenuNode(parent, node) {
+//   const children = node.children;
+//   if (children.length === 0) {
+//     createSimpleChild(parent, node);
+//     return;
+//   }
+//   const nodeElement = createNestedChild(parent, node);
+//   children.forEach((child) => {
+//     constructTreeMenuNode(nodeElement, child);
+//   });
+// }
 
-//   const keyElement = document.createElement("div");
-//   keyElement.textContent = key;
-//   propContainer.appendChild(keyElement);
+// function createNestedChild(parent, node) {
+//   const content = nodeToString(node);
+//   const root = document.createElement("li");
+//   createTitle(root, content);
+//   const childrenContainer = document.createElement("ul");
+//   childrenContainer.classList.add("nested");
+//   root.appendChild(childrenContainer);
+//   parent.appendChild(root);
+//   return childrenContainer;
+// }
 
-//   const valueElement = document.createElement("div");
-//   valueElement.classList.add("ifc-property-value");
-//   valueElement.textContent = value;
-//   propContainer.appendChild(valueElement);
+// function createTitle(parent, content) {
+//   const title = document.createElement("span");
+//   title.classList.add("caret");
+//   title.onclick = () => {
+//     title.parentElement.querySelector(".nested").classList.toggle("active");
+//     title.classList.toggle("caret-down");
+//   };
+//   title.textContent = content;
+//   parent.appendChild(title);
+// }
 
-//   propsGUI.appendChild(propContainer);
+// function createSimpleChild(parent, node) {
+//   const content = nodeToString(node);
+//   const childNode = document.createElement("li");
+//   childNode.classList.add("leaf-node");
+//   childNode.textContent = content;
+//   parent.appendChild(childNode);
+
+//   childNode.onmouseenter = () => {
+//     viewer.IFC.selector.prepickIfcItemsByID(0, [node.expressID]);
+//   };
+
+//   childNode.onclick = async () => {
+//     viewer.IFC.selector.pickIfcItemsByID(0, [node.expressID]);
+//   };
 // }
 
 // function removeAllChildren(element) {
@@ -122095,6 +122022,84 @@ window.onkeydown = (event) => {
 //     element.removeChild(element.firstChild);
 //   }
 // }
+
+/****************** Select ************************************/
+window.onclick = () => viewer.IFC.selector.pickIfcItem(false, false);
+window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
+// const selectedObject = viewer.IFC.getProperties(id);
+// console.log(selectedObject);
+
+// window.onkeydown = (event) => {
+//   if (event.code === "KeyC") {
+//     viewer.IFC.selector.unpickIfcItems();
+//     viewer.IFC.selector.unHighlightIfcItems();
+//   }
+// };
+
+/******************** Get properties ***************************/
+
+window.onclick = async () => {
+  const { modelID, id } = await viewer.IFC.selector.pickIfcItem(false, false);
+
+  const props = await viewer.IFC.getProperties(modelID, id, false, false);
+
+  console.log(props);
+};
+
+/**************** Properties menu *****************************/
+
+window.ondblclick = async () => {
+  const result = await viewer.IFC.selector.highlightIfcItem();
+  if (!result) return;
+  const { modelID, id } = result;
+  const props = await viewer.IFC.getProperties(modelID, id, true, false);
+  createPropertiesMenu(props);
+};
+
+const propsGUI = document.getElementById("ifc-property-menu-root");
+
+function createPropertiesMenu(properties) {
+  console.log(properties);
+
+  removeAllChildren(propsGUI);
+
+  properties.psets;
+  properties.mats;
+  properties.type;
+
+  delete properties.psets;
+  delete properties.mats;
+  delete properties.type;
+
+  for (let key in properties) {
+    createPropertyEntry(key, properties[key]);
+  }
+}
+
+function createPropertyEntry(key, value) {
+  const propContainer = document.createElement("div");
+  propContainer.classList.add("ifc-property-item");
+
+  if (value === null || value === undefined) value = "undefined";
+  else if (value.value) value = value.value;
+
+  const keyElement = document.createElement("div");
+  keyElement.textContent = key;
+  propContainer.appendChild(keyElement);
+
+  const valueElement = document.createElement("div");
+  valueElement.classList.add("ifc-property-value");
+  valueElement.textContent = value;
+  propContainer.appendChild(valueElement);
+
+  propsGUI.appendChild(propContainer);
+}
+
+function removeAllChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
 
 /****************** Reset View buttons **********************/
 
@@ -122240,16 +122245,42 @@ function toGeometryCamera(event) {
   }
 }
 
+const clearHighlight = document.getElementById("unSelectButton");
+
+clearHighlight.addEventListener("click", clearHighligting);
+
+function clearHighligting(event) {
+  viewer.IFC.selector.unpickIfcItems();
+  viewer.IFC.selector.unHighlightIfcItems();
+}
+
+// TODO: Hide only selected object or objects
 const hideSelectedElements = document.getElementById("hideButton");
 
 hideSelectedElements.addEventListener("click", hidingSelected);
 function hidingSelected(event) {
   if (!this.dataset.clicked) {
+    hideSelectedElements.setAttribute("data-clicked", "true");
+    SubsetManager$1.removeChild([0]);
+  } else {
+    hideSelectedElements.removeAttribute("data-clicked");
+  }
+}
+
+/*********************** Toggle Spatial menu ***************************/
+
+const spatialButton = document.getElementById("spatialTreeButton");
+const spatialTreeMenu = document.getElementById("ifcTreeMenu");
+
+spatialButton.addEventListener("click", spatialVisibility);
+function spatialVisibility(event) {
+  if (!this.dataset.clicked) {
     this.setAttribute("data-clicked", "true");
-    viewer.IFC.getProperties(modelID, id, true, false);
-    console.log(id);
-    // viewer.IFC.selector.dispose(selectedElements);
+    spatialTreeMenu.style = "display:flex";
+    spatialButton.style = "outline-offset: -6px";
   } else {
     this.removeAttribute("data-clicked");
+    this.removeAttribute("style");
+    spatialTreeMenu.removeAttribute("style");
   }
 }
